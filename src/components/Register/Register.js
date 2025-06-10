@@ -2,6 +2,7 @@ import "./Register.scss";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 const Register = (props) => {
     const [email, setEmail] = useState("");
@@ -23,7 +24,39 @@ const Register = (props) => {
         // })
     }, []);
 
+    const isValidInputs = () => {
+        if (!email) {
+            toast.error("Email is required");
+            return false
+        }
+        if (!phone) {
+            toast.error("Phone is required")
+            return false
+        }
+        if (!password) {
+            toast.error("Password is required")
+            return false
+        }
+        if (password != confirmPassword) {
+            toast.error("Your password is not the same")
+            return false
+        }
+
+        let regx = /\S+@\S+\.\S+/;
+        if (!regx.test(email)) {
+            toast.error("Please enter a valid email address")
+            return false
+        }
+
+        return true
+    }
+
     const handleRegister = () => {
+
+        let check = isValidInputs();
+
+
+
         let userData = { email, phone, password, username }
 
         console.log(">>> check user Data: ", userData)
@@ -50,12 +83,14 @@ const Register = (props) => {
                             <label>Email: </label>
                             <input type="text" className="form-control" placeholder="Email address  "
                                 value={email} onChange={(event) => setEmail(event.target.value)}
+
                             />
                         </div>
                         <div className="form-group">
                             <label>Phone number: </label>
                             <input type="text" className="form-control" placeholder="phone number  "
                                 value={phone} onChange={(event) => setPhone(event.target.value)}
+
                             />
                         </div>
                         <div className="form-group">
@@ -78,7 +113,7 @@ const Register = (props) => {
                         </div>
 
 
-                        <button className="btn btn-primary" onClick={() => handleRegister()}>Register</button>
+                        <button className="btn btn-primary" type="button" onClick={() => handleRegister()}>Register</button>
 
                         <hr />
                         <div className="text-center">
