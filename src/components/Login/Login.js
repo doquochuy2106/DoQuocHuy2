@@ -45,6 +45,7 @@ const Login = (props) => {
             }
             sessionStorage.setItem('account', JSON.stringify(data))
             history.push("/users")
+            window.location.reload();
         }
         if (response && response.data && response.data.EC !== 0) {
             //error
@@ -52,6 +53,13 @@ const Login = (props) => {
         }
 
         console.log(">>> check response: ", response.data)
+    }
+
+    const handlePressEnter = (event) => {
+        console.log(">>>check:  ", event.charCode, event.code)
+        if (event.code === "Enter") {
+            handleLogin();
+        }
     }
 
     return (
@@ -85,6 +93,7 @@ const Login = (props) => {
                             placeholder="Password"
                             value={passWord}
                             onChange={(event) => { setPassWord(event.target.value) }}
+                            onKeyUp={(event) => handlePressEnter(event)}
                         />
                         <button className="btn btn-primary" onClick={() => handleLogin()}>Login</button>
                         <span className="text-center"><a className="forgot-password" href="#">Forgot your pasword</a></span>
