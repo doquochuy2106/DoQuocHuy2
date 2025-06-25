@@ -20,8 +20,6 @@ const AppRoutes = (props) => {
                 <PrivateRoutes path="/projects" component={Project} />
 
 
-
-
                 <Route path="/login">
                     <Login />
                 </Route>
