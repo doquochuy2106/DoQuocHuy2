@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Users.scss";
 import { fetchAllUser, deleteUser } from "../../services/userService";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify"
 import ModalDelete from "./ModalDelete";
 import ModalUser from "./ModalUser";
+
 
 
 const Users = (props) => {
@@ -22,8 +23,9 @@ const Users = (props) => {
     const [actionModalUser, setActionModalUser] = useState("CREATE");
     const [dataModalUser, setDataModalUser] = useState({});
     useEffect(() => {
-        fetchUsers()
+        fetchUsers();
     }, [currentPage])
+
 
     const fetchUsers = async () => {
         let response = await fetchAllUser(currentPage, currentLimit);
