@@ -44,20 +44,19 @@ const Login = (props) => {
             let groupWithRoles = response.DT.groupWithRoles;
             let email = response.DT.email;
             let username = response.DT.username;
-            let token = response.DT.access_token
+            let token = response.DT.access_token;
 
             let data = {
                 isAuthenticated: true,
-                token: token,
+                token,
                 acccount: { groupWithRoles, email, username }
             }
-            sessionStorage.setItem('account', JSON.stringify(data))
+
             loginContext(data);
-
-
             history.push("/users")
-            window.location.reload();
+            // window.location.reload();
         }
+
         if (response && response.EC !== 0) {
             //error
             toast.error(response.EM)
@@ -73,13 +72,7 @@ const Login = (props) => {
         }
     }
 
-    useEffect(() => {
-        let session = sessionStorage.getItem("account");
-        if (session) {
-            history.push('/');
-            // window.location.reload();
-        }
-    }, [])
+
 
     return (
         <div className="login-container ">
