@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react"
 import { getUserAccount } from '../services/userService'
+
 const UserContext = React.createContext(null);
 
 const UserProvider = ({ children }) => {
+
     //User is the name of the "data" that gets stored in context
-    const [user, setUser] = useState(
-        {
-            isAuthenticated: false,
-            token: "",
-            account: {}
-        }
-    );
+    const userDefault = {
+        isLoading: true,
+        isAuthenticated: false,
+        token: "",
+        account: {}
+    }
+    const [user, setUser] = useState(userDefault);
 
     //login updates the user data with a name parameter
     const loginContext = (userData) => {
-        setUser(userData)
+        setUser({ ...userData, isLoading: false })
     };
 
     //Logout updates the user data to default
@@ -28,6 +30,7 @@ const UserProvider = ({ children }) => {
     const fetchUser = async () => {
         let response = await getUserAccount();
         if (response && response.EC === 0) {
+
             let groupWithRoles = response.DT.groupWithRoles;
             let email = response.DT.email;
             let username = response.DT.username;
@@ -36,14 +39,20 @@ const UserProvider = ({ children }) => {
             let data = {
                 isAuthenticated: true,
                 token,
-                acccount: { groupWithRoles, email, username }
+                acccount: { groupWithRoles, email, username },
+                isLoading: false
             }
             setUser(data);
+        } else {
+            setUser({ ...userDefault, isLoading: false })
         }
     }
 
     useEffect(() => {
-        fetchUser()
+        console.log(window.location);
+        if (window.location.pathname !== '/' || window.location.pathname !== "/login") {
+            fetchUser();
+        }
     }, []);
 
     return (
