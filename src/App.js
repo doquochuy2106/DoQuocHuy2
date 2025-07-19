@@ -1,5 +1,4 @@
 import './App.scss';
-import Nav from './components/Navigation/Nav';
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +12,7 @@ import { useContext, useEffect, useState } from 'react';
 import AppRoutes from '../src/routes/AppRoutes'
 import { Rings } from 'react-loader-spinner'
 import { UserContext } from './context/UserContext';
+import NavHeader from './components/Navigation/NavHeader';
 
 
 
@@ -35,7 +35,7 @@ function App() {
         : */}
       {/* <> */}
       <div className='app-header'>
-        <Nav />
+        <NavHeader />
       </div>
       <div className='app-container'>
         <AppRoutes />
