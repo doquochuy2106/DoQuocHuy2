@@ -17,12 +17,12 @@ import NavHeader from './components/Navigation/NavHeader';
 
 
 function App() {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
 
   return (
     <Router>
-      {/* {user && user.isLoading ?
+      {user && user.isLoading ?
         <div className='loading-container'>
           <Rings
             height="100"
@@ -32,18 +32,16 @@ function App() {
           />
           <div>Loading data... </div>
         </div>
-        : */}
-      {/* <> */}
-      <div className='app-header'>
-        <NavHeader />
-      </div>
-      <div className='app-container'>
-        <AppRoutes />
-      </div>
-      {/* </> */}
-      {/* } */}
-
-
+        :
+        <>
+          <div className='app-header'>
+            <NavHeader />
+          </div>
+          <div className='app-container'>
+            <AppRoutes />
+          </div>
+        </>
+      }
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
