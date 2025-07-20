@@ -53,6 +53,7 @@ const NavHeader = (props) => {
                                 <Nav className="me-auto">
                                     <NavLink to="/" exact className="nav-link" >Home</NavLink>
                                     <NavLink to="/users" className="nav-link">Users</NavLink>
+                                    <NavLink to="/Roles" className="nav-link">Roles</NavLink>
                                     <NavLink to="/Projects" className="nav-link">Projects</NavLink>
                                     <NavLink to="/about" className="nav-link">About</NavLink>
                                 </Nav>
@@ -61,7 +62,7 @@ const NavHeader = (props) => {
                                         ?
                                         <>
                                             <Nav.Item className='nav-link'>
-                                                Welcome {user.account.username}!;
+                                                Welcome {user.account.username} !;
                                             </Nav.Item>
 
                                             <NavDropdown title="Setting" id="basic-nav-dropdown">
