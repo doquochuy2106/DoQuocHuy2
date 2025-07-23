@@ -1,13 +1,16 @@
 import './Role.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from "react-toastify"
 import { createRoles } from "../../services/roleService"
+import TableRole from './TableRole';
 
 const Role = (props) => {
 
     const dataChildDefault = { url: '', description: '', isValidUrl: true }
+
+    const childRef = useRef();
 
     const [listChilds, setListChilds] = useState({
         child1: dataChildDefault
@@ -59,7 +62,9 @@ const Role = (props) => {
             let data = buildDataToPersist()
             let res = await createRoles(data);
             if (res && res.EC === 0) {
-                toast.success(res.EM)
+                toast.success(res.EM);
+                console.log(childRef)
+                childRef.current.fetListRolesAgain();
             }
 
         } else {
@@ -78,7 +83,7 @@ const Role = (props) => {
         <>
             <div className='role-container'>
                 <div className='container'>
-                    <div className='mt-3'>
+                    <div className='adding-roles mt-3'>
                         <div className='title-role'>
                             <h4>Add a new role...</h4>
                         </div>
@@ -122,8 +127,13 @@ const Role = (props) => {
 
                         </div>
                     </div>
-                </div>
+                    <hr />
+                    <div className='mt-3 table-role'>
+                        <h4>List Current Roles:</h4>
+                        <TableRole ref={childRef} />
+                    </div>
 
+                </div>
             </div>
         </>
     )
